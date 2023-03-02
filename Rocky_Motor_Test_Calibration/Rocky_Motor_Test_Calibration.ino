@@ -160,7 +160,7 @@ void loop()
 
 
   // turn motor on for 3 seconds
-  if (cur_time - start_time > 3000)
+  if (cur_time - start_time > 2000)
     motors.setSpeeds((int16_t) (0), (int16_t)(0));
   else
     motors.setSpeeds((int16_t) (300), (int16_t)(300));     // magnitude of step = 300 *************

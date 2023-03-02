@@ -8,12 +8,12 @@
 //    Compile and load the code onto the robot
 //    Open the serial monitor (from the tools menu in the Arduino IDE) and set the baud rate to 9600 baud 
 //    Hold the robot upright in the air as if it were balancing (lift it up gently)
-//    Record the value displayed on the screen
+//    Record the value displayed on the screen = 0.28
 //    This value corresponds to a constant offset of the angle measuremant
 //    You will have to subtract this value out of your angle measurement 
 //    in your actual code 
 //    by replacing the value 0.25 in the follwing line of code 
-//      #define FIXED_ANGLE_CORRECTION (0.25)
+     #define FIXED_ANGLE_CORRECTION (0.28)
 //    in your balancing sketch
 //
 // The procedure for natural frequency measurement: 
