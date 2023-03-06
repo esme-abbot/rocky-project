@@ -4,7 +4,7 @@
 % rejection PI control system for Rocky. 
 % No motor model (M =1). With motor model (1st order TF)
 %
-% 2) Specify location of (target)poles based on desired reponse. The number of
+% 2) Specify location of (target) poles based on desired reponse. The number of
 % poles = denominator polynomial of closed loop TF
 %
 % 3) Extract the closed loop denomiator poly and set = polynomial of target
@@ -38,22 +38,22 @@ pretty(simplify(Hcloop))       % to display the total transfer function
 % Substitute parameters and solve
 % system parameters
 g = 9.81;
-l = 22*2.54/100   %effective length 
-a = 14;           %nominal motor parameters
-b = 1/400;        %nominal motor parameters
+l = 0.436   %effective length 
+a = 13.83;           %nominal motor parameters
+b = 0.0036;        %nominal motor parameters
 
 Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 
 % specify locations of the target poles,
 % choose # based on order of Htot denominator
 % e.g., want some oscillations, want fast decay, etc. 
-p1 = -1 + 2*pi*i    % dominant pole pair
-p2 = -1 - 2*pi*i    % dominant pole pair 
+p1 = -4 + 2*pi*i    % dominant pole pair
+p2 = -4 - 2*pi*i    % dominant pole pair 
 p3 = -10
 
 
 % target characteristic polynomial
-% if motor model (TF) is added, order of polynomial will increases
+% if motor model (TF) is added, order of polynomial will increase
 tgt_char_poly = (s-p1)*(s-p2)*(s-p3)
 npoly = 3
 
