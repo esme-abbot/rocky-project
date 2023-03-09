@@ -67,7 +67,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.36)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.30)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
@@ -85,7 +85,7 @@ void BalanceRocky()
 
     // **************Enter the control parameters here
     
-  float Kp = 8000;
+  float Kp = 10000;
   float Ki = 1500;
   float Ci = 0;   
   float Jp = 0;
@@ -131,7 +131,6 @@ void BalanceRocky()
     // save desired speed for debugging
     desSpeedL = v_c_L;
     desSpeedR = v_c_R;
-
     // the motor control signal has to be between +- 300. So clip the values to be within that range 
     // here
     if(v_c_L > 300) v_c_L = 300;
@@ -314,7 +313,10 @@ if(cur_time - prev_print_time > 103)   // do the printing every 105 ms. Don't wa
         Serial.print("\t");      
         Serial.print(measured_speedR);
         Serial.print("\t");      
-       Serial.println(speedCont);
+       Serial.print(speedCont);
+        Serial.print(desSpeedL);
+        Serial.print("\t");      
+        Serial.println(desSpeedR);    
        prev_print_time = cur_time;
   }
 
