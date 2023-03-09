@@ -17,7 +17,6 @@
 #include <LSM6.h>
 #include "Balance.h"
 
-
 extern int32_t angle_accum;
 extern int32_t speedLeft;
 extern int32_t driveLeft;
@@ -68,7 +67,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.26)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.30)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
@@ -86,11 +85,13 @@ void BalanceRocky()
 
     // **************Enter the control parameters here
     
-  float Kp = 0;
-  float Ki = 0;
+  float Kp = 10000;
+  float Ki = 1500;
   float Ci = 0;   
   float Jp = 0;
   float Ji = 0;
+  float K = 0.0036;
+  float tau = 0.07;
 
 
 
@@ -109,7 +110,7 @@ void BalanceRocky()
    // dist_accum - integral of the distance
 
    // *** enter an equation for v_d in terms of the variables available ****
-    v_d =  // this is the desired velocity from the angle controller 
+    v_d =  Kp*angle_rad + Ki * angle_rad_accum;// this is the desired velocity from the angle controller 
       
 
   // The next two lines implement the feedback controller for the motor. Two separate velocities are calculated. 
@@ -119,8 +120,8 @@ void BalanceRocky()
   // right to left. This helps ensure that the Left and Right motors are balanced
 
   // *** enter equations for input signals for v_c (left and right) in terms of the variables available ****
-    v_c_R = 
-    v_c_L =        
+    v_c_R = v_d * K/tau;
+    v_c_L = v_d * K/tau;       
 
 
 
@@ -130,7 +131,6 @@ void BalanceRocky()
     // save desired speed for debugging
     desSpeedL = v_c_L;
     desSpeedR = v_c_R;
-
     // the motor control signal has to be between +- 300. So clip the values to be within that range 
     // here
     if(v_c_L > 300) v_c_L = 300;
@@ -313,7 +313,10 @@ if(cur_time - prev_print_time > 103)   // do the printing every 105 ms. Don't wa
         Serial.print("\t");      
         Serial.print(measured_speedR);
         Serial.print("\t");      
-       Serial.println(speedCont);
+       Serial.print(speedCont);
+        Serial.print(desSpeedL);
+        Serial.print("\t");      
+        Serial.println(desSpeedR);    
        prev_print_time = cur_time;
   }
 
