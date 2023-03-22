@@ -30,7 +30,7 @@ M = a*b/(s+a);                  % TF of motor (1st order model)
 % M = 1;                        % TF without motor
 %
 J = Jp + Ji/s + Ci/s^2;         % TF of controller around motor-combined PI of x and v
-Mfb = M/(1+M*J)                % Black's formula to get tf for motor with PI feedback control 
+Mfb = M/(1+M*J);                % Black's formula to get tf for motor with PI feedback control 
 
 %  
 % closed loop transfer function from disturbance d(t)totheta(t)
@@ -43,8 +43,8 @@ pretty(simplify(Hcloop))       % to display the total transfer function
 % Substitute parameters and solve
 % system parameters
 g = 9.81;
-l = 0.436;   %effective length 
-a = 13.83;           %nominal motor parameters
+l = 0.436;  %effective length 
+a = 13.83;            %nominal motor parameters
 b = 0.0036;        %nominal motor parameters
 
 Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
@@ -52,18 +52,18 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 % specify locations of the target poles,
 % choose # based on order of Htot denominator
 % e.g., want some oscillations, want fast decay, etc. 
-% 
-% p1 = -2 + 2*pi*i    % dominant pole pair
-% p2 = -2 - 2*pi*i    % dominant pole pair 
+
+% p1 = -1 + 2*pi*i    % dominant pole pair
+% p2 = -1 - 2*pi*i    % dominant pole pair 
 % p3 = -10
-% p4 = -5
-% p5 = -5
-% 
-p1 = -3 + 0.5*i   % dominant pole pair
-p2 = -3 -0.5*i    % dominant pole pair 
-p3 = -0.5
-p4 = -1    % dominant pole pair
-p5 = -0.25     % dominant pole pair 
+% p4 = -8
+% p5 = -8.
+
+p1 = -1 + 2*i   % dominant pole pair
+p2 = -1 -2*i    % dominant pole pair 
+p3 = -6
+p4 = -42    % dominant pole pair
+p5 = -24     % dominant pole pair 
 
 % target characteristic polynomial
 % if motor model (TF) is added, order of polynomial will increases
