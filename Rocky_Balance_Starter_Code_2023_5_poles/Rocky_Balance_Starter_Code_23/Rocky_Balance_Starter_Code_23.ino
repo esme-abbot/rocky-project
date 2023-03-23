@@ -67,7 +67,7 @@ Balboa32U4Buzzer buzzer;
 Balboa32U4ButtonA buttonA;
 
 
-#define FIXED_ANGLE_CORRECTION (0.28)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
+#define FIXED_ANGLE_CORRECTION (0.27)  // ***** Replace the value 0.25 with the value you obtained from the Gyro calibration procedure
 
 
 
