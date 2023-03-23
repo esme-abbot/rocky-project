@@ -111,12 +111,11 @@ void BalanceRocky()
 
    // *** enter an equation for v_d in terms of the variables available ****
     v_d =  Kp*angle_rad + Ki * angle_rad_accum;// this is the desired velocity from the angle controller
-    Serial.println(v_d);
     v_c_L = Jp*v_d + Ji*distLeft_m + Ci*dist_accum;
     v_c_R =  Jp*v_d + Ji*distRight_m + Ci*dist_accum;
 
-    v_c_L = v_d - v_c_R;
-    v_c_R = - v_d - v_c_L;
+    v_c_L = v_d - v_c_L;
+    v_c_R = v_d - v_c_R;
       
 
   // The next two lines implement the feedback controller for the motor. Two separate velocities are calculated. 
@@ -154,7 +153,7 @@ void BalanceRocky()
 void setup()
 {
   // Uncomment these lines if your motors are reversed.
-  motors.flipLeftMotor(true);
+  //motors.flipLeftMotor(true);
   //motors.flipRightMotor(true);
 
   Serial.begin(9600);
