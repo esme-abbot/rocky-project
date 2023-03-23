@@ -53,11 +53,11 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 % choose # based on order of Htot denominator
 % e.g., want some oscillations, want fast decay, etc. 
 
-p1 = -0.25 + 1*pi*i    % dominant pole pair
-p2 = -0.25 - 1*pi*i    % dominant pole pair 
-p3 = -10
-p4 = -0.5 - 3*pi*i
-p5 = -0.5 + 3*pi*i
+p1 = -1 + 1*pi*i    % dominant pole pair
+p2 = -1 - 1*pi*i    % dominant pole pair 
+p3 = -4
+p4 = -2 - 1.5*pi*i
+p5 = -2 + 1.5*pi*i
 
 % p1 = -1 + 2*i   % dominant pole pair
 % p2 = -1 -2*i    % dominant pole pair 
