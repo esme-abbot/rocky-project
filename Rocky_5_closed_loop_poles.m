@@ -53,11 +53,11 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 % choose # based on order of Htot denominator
 % e.g., want some oscillations, want fast decay, etc. 
 
-p1 = -1 + 2*pi*i    % dominant pole pair
-p2 = -1 - 2*pi*i    % dominant pole pair 
+p1 = -0.25 + 1*pi*i    % dominant pole pair
+p2 = -0.25 - 1*pi*i    % dominant pole pair 
 p3 = -10
-p4 = -8
-p5 = -8
+p4 = -0.5 - 3*pi*i
+p5 = -0.5 + 3*pi*i
 
 % p1 = -1 + 2*i   % dominant pole pair
 % p2 = -1 -2*i    % dominant pole pair 
@@ -136,6 +136,11 @@ check_closed_loop_poles = vpa (roots(subs(chk_coeffs_denom)), 4)
     step(TFH)       %plot the step response
     
     
+    Ki = real(Ki)
+    Kp = real(Kp)
+    Ci = real(Ci)
+    Ji = real(Ji)
+    Jp = real(Jp)
 
 
 
