@@ -53,11 +53,18 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 % choose # based on order of Htot denominator
 % e.g., want some oscillations, want fast decay, etc. 
 
+
+% p1 = -1 + 1*pi*i    % dominant pole pair
+% p2 = -1 - 1*pi*i    % dominant pole pair 
+% p3 = -4.7083
+% p4 = -2 - 1.5*pi*i
+% p5 = -2 + 1.5*pi*i
+
 p1 = -1 + 1*pi*i    % dominant pole pair
 p2 = -1 - 1*pi*i    % dominant pole pair 
-p3 = -4
-p4 = -2 - 1.5*pi*i
-p5 = -2 + 1.5*pi*i
+p3 = -2 - 1.5*pi*i
+p4 = -2 + 1.5*pi*i
+p5 = -4.7083
 
 % p1 = -1 + 2*i   % dominant pole pair
 % p2 = -1 -2*i    % dominant pole pair 
@@ -65,15 +72,16 @@ p5 = -2 + 1.5*pi*i
 % p4 = -42    % dominant pole pair
 % p5 = -24     % dominant pole pair 
 
-wn = 4.7087;
-theta1 = 20;
-theta2 = 15;
-
-% p1 = -wn*(cosd(theta1) + sind(theta1)*i)    % dominant pole pair
-% p2 = -wn*(cosd(theta1) - sind(theta1)*i)    % dominant pole pair 
-% p3 = -wn*(cosd(theta2) + sind(theta2)*i)
-% p4 = -wn*(cosd(theta2) - sind(theta2)*i)
+% wn = 4.7087 /1.5;
+% theta1 = 25;
+% theta2 = 35;
+% 
+% p1 = -wn*(cosd(theta1) + sind(theta1))    % dominant pole pair
+% p2 = -wn*(cosd(theta1) - sind(theta1))    % dominant pole pair 
+% p3 = -wn*(cosd(theta2) + sind(theta2))
+% p4 = -wn*(cosd(theta2) - sind(theta2))
 % p5 = -wn
+
 
 % target characteristic polynomial
 % if motor model (TF) is added, order of polynomial will increases
