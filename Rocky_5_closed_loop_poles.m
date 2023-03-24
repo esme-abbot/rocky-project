@@ -55,9 +55,9 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 
 p1 = -1 + 1*pi*i    % dominant pole pair
 p2 = -1 - 1*pi*i    % dominant pole pair 
-p3 = -4
-p4 = -2 - 1.5*pi*i
-p5 = -2 + 1.5*pi*i
+p3 = -2 - 1.5*pi*i
+p4 = -2 + 1.5*pi*i
+p5 = -4.7083 % natural frequency of rocky
 
 % p1 = -1 + 2*i   % dominant pole pair
 % p2 = -1 -2*i    % dominant pole pair 
@@ -66,13 +66,13 @@ p5 = -2 + 1.5*pi*i
 % p5 = -24     % dominant pole pair 
 
 wn = 4.7087;
-theta1 = 20;
-theta2 = 15;
+theta1 = 35;
+theta2 = 30;
 
-% p1 = -wn*(cosd(theta1) + sind(theta1)*i)    % dominant pole pair
-% p2 = -wn*(cosd(theta1) - sind(theta1)*i)    % dominant pole pair 
-% p3 = -wn*(cosd(theta2) + sind(theta2)*i)
-% p4 = -wn*(cosd(theta2) - sind(theta2)*i)
+% p1 = -wn*(cosd(theta1) + sind(theta1))    % dominant pole pair
+% p2 = -wn*(cosd(theta1) - sind(theta1))    % dominant pole pair 
+% p3 = -wn*(cosd(theta2) + sind(theta2))
+% p4 = -wn*(cosd(theta2) - sind(theta2))
 % p5 = -wn
 
 % target characteristic polynomial

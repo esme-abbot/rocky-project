@@ -85,11 +85,11 @@ void BalanceRocky()
 
     // **************Enter the control parameters here
     
-  float Ki = 4834;
-  float Kp = 1062;
-  float Ci = -1017;   
-  float Ji = -596.8;
-  float Jp = -76.9;
+  float Ki = 8865.7;//9489.0;//4674.5;//5331.0;//4834;
+  float Kp = 1869.1; //2001.3;//989.7; //1126.0; //1062;
+  float Ci = -353.4; //-2066.8; //-2066.8; //-1197.0;//-1017;   
+  float Ji = -694.6; //-1506.8; //-667.9; //-657.0;//-596.8;
+  float Jp = 135.64; //46.95; //-133.8; //-62.6;//-76.9;
   float K = 0.0036;
   float tau = 0.07;
 
@@ -110,7 +110,7 @@ void BalanceRocky()
    // dist_accum - integral of the distance
 
    // *** enter an equation for v_d in terms of the variables available ****
-    v_d =  Kp*angle_rad + Ki * angle_rad_accum;// this is the desired velocity from the angle controller
+    v_d =  (Kp*angle_rad + Ki * angle_rad_accum);// this is the desired velocity from the angle controller
     v_c_L_mc = Jp*v_d + Ji*distLeft_m + Ci*dist_accum;
     v_c_R_mc =  Jp*v_d + Ji*distRight_m + Ci*dist_accum;
 
