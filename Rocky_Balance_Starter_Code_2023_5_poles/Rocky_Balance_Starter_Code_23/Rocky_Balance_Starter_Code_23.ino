@@ -90,6 +90,53 @@ void BalanceRocky()
   float Ci = -1017;   
   float Ji = -596.8;
   float Jp = -76.9;
+
+// Parameters for poles
+// p1 = -1 + 1*pi*i    % dominant pole pair
+// p2 = -1 - 1*pi*i    % dominant pole pair 
+// p3 = -2 - 1.5*pi*i
+// p4 = -2 + 1.5*pi*i
+// p5 = -4.7083 % natural frequency of rocky
+  float Ki = 5331.5;
+  float Kp = 1126.0;
+  float Ci = -1197.5;   
+  float Ji = -657.48;
+  float Jp = -62.645;
+
+// // Thetas 25 and 35
+//   float Ki = 12732;
+//   float Kp = 2684.3;
+//   float Ci = -2066.8;   
+//   float Ji = -1953.7;
+//   float Jp = -143.27;
+
+// // Thetas 25 and 35, scaled by /1.5
+//   float Ki = 5154;
+//   float Kp = 1092;
+//   float Ci = -272.2;   
+//   float Ji = -385.9;
+//   float Jp = -2.9237;
+
+
+  // float Ki = 9489.0;//4674.5;//5331.0;//4834;
+  // float Kp = 2001.3;//989.7; //1126.0; //1062;
+  // float Ci = -2066.8; //-2066.8; //-1197.0;//-1017;   
+  // float Ji = -1506.8; //-667.9; //-657.0;//-596.8;
+  // float Jp = 46.95; //-133.8; //-62.6;//-76.9;
+
+
+  // float Ki = 4304;
+  // float Kp = 907.8;
+  // float Ci = -59.83;   
+  // float Ji = -164;
+  // float Jp = -2.9237;
+
+  // float Kp = 1815.8;
+  // float Ki = 8218.6;
+  // float Ci = -365.9;
+  // float Jp = 62.3;
+  // float Ji = -696.3;
+  
   float K = 0.0036;
   float tau = 0.07;
 
@@ -111,14 +158,15 @@ void BalanceRocky()
 
    // *** enter an equation for v_d in terms of the variables available ****
     v_d =  Kp*angle_rad + Ki * angle_rad_accum;// this is the desired velocity from the angle controller
+    v_d = v_d * K/tau;
     v_c_L_mc = Jp*v_d + Ji*distLeft_m + Ci*dist_accum;
     v_c_R_mc =  Jp*v_d + Ji*distRight_m + Ci*dist_accum;
 
     v_c_L = (v_d - v_c_R_mc);
     v_c_R = (v_d - v_c_L_mc);
 
-    v_c_L = v_c_L * K/tau;
-    v_c_R = v_c_R * K/tau;
+    // v_c_L = v_c_L * K/tau;
+    // v_c_R = v_c_R * K/tau;
       
 
   // The next two lines implement the feedback controller for the motor. Two separate velocities are calculated. 
@@ -321,7 +369,8 @@ if(cur_time - prev_print_time > 103)   // do the printing every 105 ms. Don't wa
         Serial.print("\t");      
         Serial.print(measured_speedR);
         Serial.print("\t");      
-       Serial.print(speedCont);
+        Serial.print(speedCont);
+        Serial.print("\t"); 
         Serial.print(desSpeedL);
         Serial.print("\t");      
         Serial.println(desSpeedR);    
