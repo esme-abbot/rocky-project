@@ -1,7 +1,7 @@
 % Rocky_5_closed_loop_poles.m
 %
 % 1) Symbolically calculates closed loop transfer function of PI disturbannce
-% rejection control system for Rocky. 
+% rejection control system for Rocky.
 % No motor model (M =1). With motor model (1st order TF)
 %
 % 2) Specify location of (target)poles based on desired reponse. The number of
@@ -12,13 +12,13 @@
 %
 % 4) Solve for Ki, Kp, Ji, Jp, Ci to match coefficients of polynomials. In general,
 % this will be underdefined and will not be able to place poles in exact
-% locations. In this case (5th order), the control constants can be found exactly 
+% locations. In this case (5th order), the control constants can be found exactly
 %
-% 5) Plot impulse response to see closed-loop behavior. 
+% 5) Plot impulse response to see closed-loop behavior.
 %
 % based on code by SG. last modified 3/8/22 CL
 
-clear all; 
+clear all;
 close all;
 
 syms s a b l g Kp Ki Jp Ji Ci   % define symbolic variables
@@ -26,13 +26,13 @@ syms s a b l g Kp Ki Jp Ji Ci   % define symbolic variables
 Hvtheta = -s/l/(s^2-g/l);       % TF from velocity to angle of pendulum
 
 K = Kp + Ki/s;                  % TF of the PI angle controller
-M = a*b/(s+a);                  % TF of motor (1st order model) 
+M = a*b/(s+a);                  % TF of motor (1st order model)
 % M = 1;                        % TF without motor
 %
 J = Jp + Ji/s + Ci/s^2;         % TF of controller around motor-combined PI of x and v
-Mfb = M/(1+M*J);                % Black's formula to get tf for motor with PI feedback control 
+Mfb = M/(1+M*J);                % Black's formula to get tf for motor with PI feedback control
 
-%  
+%
 % closed loop transfer function from disturbance d(t)totheta(t)
 % Hcloop = 1/(1-Hvtheta*M*K)    % use this for no motor feedback
 % with motor feedback
@@ -43,7 +43,7 @@ pretty(simplify(Hcloop))       % to display the total transfer function
 % Substitute parameters and solve
 % system parameters
 g = 9.81;
-l = 0.436;  %effective length 
+l = 0.436;  %effective length
 a = 13.8265;            %nominal motor parameters
 b = 0.0036;        %nominal motor parameters
 
@@ -51,35 +51,43 @@ Hcloop_sub = subs(Hcloop) % sub parameter values into Hcloop
 
 % specify locations of the target poles,
 % choose # based on order of Htot denominator
-% e.g., want some oscillations, want fast decay, etc. 
+% e.g., want some oscillations, want fast decay, etc.
+
+
+% p1 = -1 + 1*pi*i    % dominant pole pair
+% p2 = -1 - 1*pi*i    % dominant pole pair
+% p3 = -4.7083
+% p4 = -2 - 1.5*pi*i
+% p5 = -2 + 1.5*pi*i
 
 p1 = -1 + 1*pi*i    % dominant pole pair
-p2 = -1 - 1*pi*i    % dominant pole pair 
+p2 = -1 - 1*pi*i    % dominant pole pair
 p3 = -2 - 1.5*pi*i
 p4 = -2 + 1.5*pi*i
 p5 = -4.7083 % natural frequency of rocky
 
 % p1 = -1 + 2*i   % dominant pole pair
-% p2 = -1 -2*i    % dominant pole pair 
+% p2 = -1 -2*i    % dominant pole pair
 % p3 = -6
 % p4 = -42    % dominant pole pair
-% p5 = -24     % dominant pole pair 
+% p5 = -24     % dominant pole pair
 
-wn = 4.7087;
-theta1 = 35;
-theta2 = 30;
-
+% wn = 4.7087 /1.5;
+% theta1 = 25;
+% theta2 = 35;
+%
 % p1 = -wn*(cosd(theta1) + sind(theta1))    % dominant pole pair
-% p2 = -wn*(cosd(theta1) - sind(theta1))    % dominant pole pair 
+% p2 = -wn*(cosd(theta1) - sind(theta1))    % dominant pole pair
 % p3 = -wn*(cosd(theta2) + sind(theta2))
 % p4 = -wn*(cosd(theta2) - sind(theta2))
 % p5 = -wn
+
 
 % target characteristic polynomial
 % if motor model (TF) is added, order of polynomial will increases
 % tgt_char_poly = (s-p1)*(s-p2)*(s-p3)
 
-% check polynomial-expand to fifth order 
+% check polynomial-expand to fifth order
 tgt_char_poly = (s-p1)*(s-p2)*(s-p3)*(s-p4)*(s-p5)
 exp_tgt_char_poly = expand(tgt_char_poly)
 
@@ -116,18 +124,18 @@ Ji = double(solutions.Ji)
 Jp = double(solutions.Jp)
 Ci = double(solutions.Ci)
 
-%write out denominator polynomial 
+%write out denominator polynomial
 aaa = vpa(subs(coeffs_denom),4)
 
-% reorder coefficients for the check polynomial 
+% reorder coefficients for the check polynomial
 for ii = 1:length(coeffs_denom)
     chk_coeffs_denom(ii) = coeffs_denom(length(coeffs_denom) + 1 - ii);
 end
 
-% check poles should be same as chosen input poles 
+% check poles should be same as chosen input poles
 check_closed_loop_poles = vpa (roots(subs(chk_coeffs_denom)), 4)
 
-% write out target polynomial 
+% write out target polynomial
 % bbb = vpa( expand( (s-check_closed_loop_poles(1))*(s-check_closed_loop_poles(2)) ...
 %     *(s-check_closed_loop_poles(3))*(s-check_closed_loop_poles(4)) ...
 %     *(s-check_closed_loop_poles(5)) ) )
@@ -144,17 +152,10 @@ check_closed_loop_poles = vpa (roots(subs(chk_coeffs_denom)), 4)
     impulse(TFH);   %plot the impulse reponse
     figure(2)
     step(TFH)       %plot the step response
-    
-    
+
+
     Ki = real(Ki)
     Kp = real(Kp)
     Ci = real(Ci)
     Ji = real(Ji)
     Jp = real(Jp)
-
-
-
-
-
-
-
